@@ -7,3 +7,5 @@ Maintainer: Yohan Yee <yohan.yee@sickkids.ca>
 Description: Code to examine the variety of ways that multivariate data can be normalized, and its subsequent effects on imaging pipeline outputs. Much of the code is from the RStructuralCovariance package.
 Encoding: UTF-8
 LazyData: true
+License: MIT
+RoxygenNote: 6.0.1

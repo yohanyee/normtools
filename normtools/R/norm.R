@@ -13,6 +13,7 @@
 #'
 #' @export
 norm_successive <- function(X, type="F", tol=1e-8, verbose=TRUE, na.set=0) {
+  X <- as.matrix(X)
   X[is.na(X)] <- na.set
   norm_types <- list(f="Frobenius norm", o="One norm", `1`="One norm", i="Infinity norm", m="Maximum modulus", `2`="Spectral (2)-norm")
   norm_difference <- 1
@@ -137,7 +138,7 @@ norm_col_regression <- function(X) {
 #' @return Normalized array or vector of regression residuals.
 #'
 #' @export
-normByModel <- function(X, formula, df, train.indices=NULL) {
+norm_by_model <- function(X, formula, df, train.indices=NULL) {
   if (is.vector(X)) {
     return(residuals_from_model(X, formula = formula, df=df, train.indices = train.indices))
   } else {
