@@ -62,3 +62,5 @@ qplot(as.numeric(cor(dat_rel)[o,o]), as.numeric(cor(dat_rel[rand_genes,])[o,o]))
 qplot(as.numeric(cor(dat_reg)[o,o]), as.numeric(cor(dat_reg[rand_genes,])[o,o]))
 
 dat_rf_rsq
+
+
