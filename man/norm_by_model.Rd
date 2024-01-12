@@ -2,12 +2,16 @@
 % Please edit documentation in R/norm.R
 \name{norm_by_model}
 \alias{norm_by_model}
-\alias{norm_by_model}
-\title{Normalization of rectangular array by model fitting}
+\title{Normalization of rectangular array by muiltivariate model fitting}
 \usage{
-norm_by_model(X, formula, df, train.indices = NULL)
-
-norm_by_model(X, formula, df, train.indices = NULL)
+norm_by_model(
+  X,
+  formula,
+  df,
+  train.indices = NULL,
+  progressbar = TRUE,
+  cl = NULL
+)
 }
 \arguments{
 \item{X}{A rectangular array, or a vector. If a rectangular array is provided, then the model will be applied to each column separately.}
@@ -18,21 +22,13 @@ norm_by_model(X, formula, df, train.indices = NULL)
 
 \item{train.indices}{an optional set of indices corresponding to the rows of \code{X} indicating the data on which the model should be fit. The same model will be then be applied to the remaining indices. If \code{NULL}, then all rows are used in the model.}
 
-\item{X}{A rectangular array, or a vector. If a rectangular array is provided, then the model will be applied to each column separately.}
+\item{progressbar}{display a progress bar? (default=TRUE)}
 
-\item{formula}{a formula describing the model to be fitted, with response variable omitted. If response variable is present, it will be dropped and the appropriate data from \code{X} will be used.}
-
-\item{df}{data frame with same number of rows as \code{X}, containing the predictors.}
-
-\item{train.indices}{an optional set of indices corresponding to the rows of \code{X} indicating the data on which the model should be fit. The same model will be then be applied to the remaining indices. If \code{NULL}, then all rows are used in the model.}
+\item{cl}{a cluster object to pass to pbapply if progressbar=TRUE}
 }
 \value{
 Normalized array or vector of regression residuals.
-
-Normalized array or vector of regression residuals.
 }
 \description{
-Fit a model with provided predictors and extract residuals.
-
 Fit a model with all other columns as predictors and extract residuals
 }
