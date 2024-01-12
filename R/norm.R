@@ -126,28 +126,6 @@ norm_col_regression <- function(X) {
 }
 
 
-
-#' Normalization of rectangular array by model fitting
-#'
-#' Fit a model with provided predictors and extract residuals.
-#'
-#' @param X A rectangular array, or a vector. If a rectangular array is provided, then the model will be applied to each column separately.
-#' @param formula a formula describing the model to be fitted, with response variable omitted. If response variable is present, it will be dropped and the appropriate data from \code{X} will be used.
-#' @param df data frame with same number of rows as \code{X}, containing the predictors.
-#' @param train.indices an optional set of indices corresponding to the rows of \code{X} indicating the data on which the model should be fit. The same model will be then be applied to the remaining indices. If \code{NULL}, then all rows are used in the model.
-#' @return Normalized array or vector of regression residuals.
-#'
-#' @export
-norm_by_model <- function(X, formula, df, train.indices=NULL) {
-  if (is.vector(X)) {
-    return(residuals_from_model(X, formula = formula, df=df, train.indices = train.indices))
-  } else {
-    return(apply(X = X, MARGIN = 2, FUN=residuals_from_model, formula=formula, df=df, train.indices=train.indices))
-  }
-}
-
-
-
 #' Normalization of rectangular array by muiltivariate model fitting
 #'
 #' Fit a model with all other columns as predictors and extract residuals
