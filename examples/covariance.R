@@ -8,9 +8,16 @@ dat <- read.csv("data/mouse_brain_ABI_coronal_gene_expression.csv", row.names = 
 
 dat_rel <- norm_row_sum(dat)
 dat_reg <- norm_row_regression(dat)
-dat_nbm <- norm_by_model(dat, ~ total, df=data.frame(total=rowSums(dat)))
+dat_nbm <- norm_by_model(dat, ~ total, df=data.frame(total=rowSums(dat)), progressbar = FALSE)
+dat_nbm_pb <- norm_by_model(dat, ~ total, df=data.frame(total=rowSums(dat)), progressbar = TRUE)
 dat_suc <- norm_successive(dat)
 
+cl <- parallel::makeCluster(6)
+dat_nbm_cl <- norm_by_model(dat, ~ total, df=data.frame(total=rowSums(dat)), progressbar = TRUE, cl=cl)
+stopCluster(cl)
+
+all(dat_nbm==dat_nbm_pb)
+all(dat_nbm==dat_nbm_cl)
 
 o <- dat_rel %>% cor %>% dist %>% hclust(method="complete") %>% .$order
 

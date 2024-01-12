@@ -156,13 +156,24 @@ norm_by_model <- function(X, formula, df, train.indices=NULL) {
 #' @param formula a formula describing the model to be fitted, with response variable omitted. If response variable is present, it will be dropped and the appropriate data from \code{X} will be used.
 #' @param df data frame with same number of rows as \code{X}, containing the predictors.
 #' @param train.indices an optional set of indices corresponding to the rows of \code{X} indicating the data on which the model should be fit. The same model will be then be applied to the remaining indices. If \code{NULL}, then all rows are used in the model.
+#' @param progressbar display a progress bar? (default=TRUE)
+#' @param cl a cluster object to pass to pbapply if progressbar=TRUE
 #' @return Normalized array or vector of regression residuals.
 #'
 #' @export
-norm_by_model <- function(X, formula, df, train.indices=NULL) {
+norm_by_model <- function(X, formula, df, train.indices=NULL, progressbar=TRUE, cl=NULL) {
   if (is.vector(X)) {
     return(residuals_from_model(X, formula = formula, df=df, train.indices = train.indices))
   } else {
-    return(apply(X = X, MARGIN = 2, FUN=residuals_from_model, formula=formula, df=df, train.indices=train.indices))
+    if (progressbar) {
+      if (is.null(cl)) {
+        out <- pbapply(X = X, MARGIN = 2, FUN=residuals_from_model, formula=formula, df=df, train.indices=train.indices)
+      } else {
+        out <- pbapply(X = X, MARGIN = 2, FUN=residuals_from_model, cl=cl, formula=formula, df=df, train.indices=train.indices)
+      }
+    } else {
+      out <- apply(X = X, MARGIN = 2, FUN=residuals_from_model, formula=formula, df=df, train.indices=train.indices)
+    }
+    return(out)
   }
 }
