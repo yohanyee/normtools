@@ -5,7 +5,7 @@ library(corrplot)
 library(doParallel)
 
 # Load data
-dat <- read.csv("/hpf/largeprojects/MICe/yyee/dev/normtools/normtools/data/mouse_brain_ABI_coronal_gene_expression.csv", row.names = 1, check.names = F)
+dat <- read.csv("data/mouse_brain_ABI_coronal_gene_expression.csv", row.names = 1, check.names = F)
 
 # Setup params
 N_cores <- 40
